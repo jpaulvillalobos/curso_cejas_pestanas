@@ -1,5 +1,5 @@
 const WEBHOOK_URL =
-'https://dividend-extenuate-stinger.ngrok-free.dev/webhook/curso-cejas';
+'https://dividend-extenuate-stinger.ngrok-free.dev/webhook-test/curso-cejas';
 
 const form = document.getElementById('leadForm');
 
