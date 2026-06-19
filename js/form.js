@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(
                 WEBHOOK_URL,
                 {
-                    method: 'POST',
+                    method: 'GET',
                     body: JSON.stringify(formData)
                 }
             );
