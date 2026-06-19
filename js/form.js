@@ -1,9 +1,22 @@
+// ========================================
+// CONFIGURACIÓN
+// ========================================
+
 const WEBHOOK_URL =
-'https://dividend-extenuate-stinger.ngrok-free.dev/webhook-test/curso-cejas';
+'https://dividend-extenuate-stinger.ngrok-free.dev/webhook/curso-cejas';
 
-const form = document.getElementById('leadForm');
+// ========================================
+// FORMULARIO
+// ========================================
 
-if(form){
+document.addEventListener('DOMContentLoaded', () => {
+
+    const form = document.getElementById('leadForm');
+
+    if (!form) {
+        console.error('No se encontró el formulario #leadForm');
+        return;
+    }
 
     form.addEventListener('submit', async (e) => {
 
@@ -11,24 +24,30 @@ if(form){
 
         const button = form.querySelector('button');
 
-        button.disabled = true;
-        button.innerText = 'Enviando...';
-
-        const formData = {
-
-            nombre: form.nombre.value.trim(),
-            correo: form.correo.value.trim(),
-            telefono: form.telefono.value.trim(),
-            ciudad: form.ciudad.value.trim(),
-            landing: window.location.href,
-            fecha: new Date().toISOString()
-
-        };
-
-        console.log("Enviando:", formData);
-
         try {
 
+            // Estado de carga
+            button.disabled = true;
+            button.textContent = 'Enviando...';
+
+            // Datos del formulario
+            const formData = {
+
+                nombre: form.nombre.value.trim(),
+                correo: form.correo.value.trim(),
+                telefono: form.telefono.value.trim(),
+                ciudad: form.ciudad.value.trim(),
+
+                // Datos adicionales útiles
+                landing: window.location.href,
+                fecha: new Date().toISOString(),
+                userAgent: navigator.userAgent
+
+            };
+
+            console.log('Enviando lead:', formData);
+
+            // Envío a n8n
             const response = await fetch(
                 WEBHOOK_URL,
                 {
@@ -40,40 +59,68 @@ if(form){
                 }
             );
 
-            console.log("Status:", response.status);
+            // Verificar respuesta HTTP
+            if (!response.ok) {
 
-            const result = await response.text();
+                throw new Error(
+                    `Error HTTP: ${response.status}`
+                );
 
-            console.log("Respuesta n8n:", result);
-
-            if(!response.ok){
-                throw new Error(result);
             }
 
+            // Intentar leer JSON
+            let result;
+
+            try {
+
+                result = await response.json();
+
+            } catch {
+
+                result = {
+                    success: true
+                };
+
+            }
+
+            console.log('Respuesta n8n:', result);
+
+            // Mensaje éxito
             alert(
-                '✅ Información enviada correctamente.'
+                '✅ Hemos recibido tu información. Muy pronto te contactaremos.'
             );
 
+            // Limpiar formulario
             form.reset();
 
-        }
-        catch(error){
+            // Opcional: redireccionar a WhatsApp
+            /*
+            setTimeout(() => {
 
-            console.error(error);
+                window.location.href =
+                'https://wa.me/573001234567';
+
+            }, 1500);
+            */
+
+        }
+        catch (error) {
+
+            console.error('Error:', error);
 
             alert(
-                '❌ Error enviando información. Revisa la consola.'
+                '❌ No fue posible enviar la información. Intenta nuevamente.'
             );
 
         }
-        finally{
+        finally {
 
             button.disabled = false;
-            button.innerText =
-            'Quiero Recibir Información';
+            button.textContent =
+                'Quiero Recibir Información';
 
         }
 
     });
 
-}
+});
