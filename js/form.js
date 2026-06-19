@@ -1,121 +1,79 @@
-// ==========================
-// FORMULARIO
-// ==========================
+const WEBHOOK_URL =
+'https://dividend-extenuate-stinger.ngrok-free.dev/webhook/curso-cejas';
 
-const form =
-document.getElementById('leadForm');
+const form = document.getElementById('leadForm');
 
 if(form){
 
-    form.addEventListener(
-        'submit',
-        async function(e){
+    form.addEventListener('submit', async (e) => {
 
-            e.preventDefault();
+        e.preventDefault();
 
-            const button =
-            form.querySelector('button');
+        const button = form.querySelector('button');
 
-            button.disabled = true;
-            button.innerText = 'Enviando...';
+        button.disabled = true;
+        button.innerText = 'Enviando...';
 
-            const formData = {
+        const formData = {
 
-                nombre:
-                form.nombre.value.trim(),
+            nombre: form.nombre.value.trim(),
+            correo: form.correo.value.trim(),
+            telefono: form.telefono.value.trim(),
+            ciudad: form.ciudad.value.trim(),
+            landing: window.location.href,
+            fecha: new Date().toISOString()
 
-                correo:
-                form.correo.value.trim(),
+        };
 
-                telefono:
-                form.telefono.value.trim(),
+        console.log("Enviando:", formData);
 
-                ciudad:
-                form.ciudad.value.trim()
+        try {
 
-            };
-
-            console.log(
-                'Nuevo Lead:',
-                formData
+            const response = await fetch(
+                WEBHOOK_URL,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                }
             );
 
-            try{
+            console.log("Status:", response.status);
 
-                /*
-                Aquí conectaremos:
+            const result = await response.text();
 
-                - Google Sheets
-                - Systeme.io
-                - Zapier
-                - Make
-                - CRM
-                */
+            console.log("Respuesta n8n:", result);
 
-                await fakeRequest();
-
-                showSuccess();
-
-                form.reset();
-
+            if(!response.ok){
+                throw new Error(result);
             }
-            catch(error){
 
-                showError();
+            alert(
+                '✅ Información enviada correctamente.'
+            );
 
-                console.error(error);
-
-            }
-            finally{
-
-                button.disabled = false;
-
-                button.innerText =
-                'Quiero Recibir Información';
-
-            }
+            form.reset();
 
         }
-    );
+        catch(error){
 
-}
+            console.error(error);
 
+            alert(
+                '❌ Error enviando información. Revisa la consola.'
+            );
 
-// ==========================
-// SIMULADOR API
-// ==========================
+        }
+        finally{
 
-function fakeRequest(){
+            button.disabled = false;
+            button.innerText =
+            'Quiero Recibir Información';
 
-    return new Promise(resolve => {
-
-        setTimeout(() => {
-
-            resolve(true);
-
-        },1500);
+        }
 
     });
-
-}
-
-
-// ==========================
-// ALERTAS
-// ==========================
-
-function showSuccess(){
-
-    alert(
-        '✅ Información enviada correctamente. Te contactaremos pronto.'
-    );
-
-}
-
-function showError(){
-
-    alert(
-        '❌ Ocurrió un error. Intenta nuevamente.'
-    );
 
 }
