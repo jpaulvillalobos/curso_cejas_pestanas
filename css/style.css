@@ -1,0 +1,640 @@
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#fffafc;
+    color:#333;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+}
+
+ul{
+    list-style:none;
+}
+
+/* ==========================
+   VARIABLES
+========================== */
+
+:root{
+
+    --primary:#ff4f81;
+    --secondary:#ff9ab8;
+    --gold:#d4af37;
+    --dark:#2d2d2d;
+    --light:#ffffff;
+    --gray:#6f6f6f;
+
+    --gradient:
+    linear-gradient(
+        135deg,
+        #ff4f81 0%,
+        #ff7aa2 50%,
+        #ffc4d6 100%
+    );
+
+    --shadow:
+    0 15px 40px rgba(255,79,129,.18);
+
+    --radius:20px;
+}
+
+/* ==========================
+   CONTAINER
+========================== */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        rgba(255,255,255,.85),
+        rgba(255,255,255,.85)
+    ),
+    url('../assets/images/hero-bg.jpg');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+}
+
+.hero-content{
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:60px;
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:12px 22px;
+
+    background:#ffe6ee;
+
+    color:var(--primary);
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+}
+
+.hero h1{
+
+    font-size:4rem;
+    line-height:1.1;
+    color:var(--dark);
+
+    margin-bottom:25px;
+}
+
+.hero p{
+
+    font-size:1.2rem;
+    color:var(--gray);
+
+    margin-bottom:30px;
+}
+
+.hero-benefits{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+
+    margin-bottom:35px;
+}
+
+.hero-benefits div{
+
+    background:white;
+
+    padding:12px 18px;
+
+    border-radius:50px;
+
+    box-shadow:var(--shadow);
+
+    font-size:.95rem;
+}
+
+.hero-benefits i{
+    color:var(--primary);
+    margin-right:8px;
+}
+
+.hero-image{
+
+    display:flex;
+    justify-content:center;
+}
+
+.hero-image img{
+
+    max-height:700px;
+
+    animation:float 4s ease-in-out infinite;
+}
+
+/* ==========================
+   BOTONES
+========================== */
+
+.btn-primary{
+
+    display:inline-block;
+
+    background:var(--gradient);
+
+    color:white;
+
+    padding:18px 40px;
+
+    border-radius:50px;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 20px 40px rgba(255,79,129,.35);
+}
+
+/* ==========================
+   BENEFITS
+========================== */
+
+.benefits{
+
+    padding:100px 0;
+}
+
+.benefits h2{
+
+    text-align:center;
+
+    font-size:2.7rem;
+
+    margin-bottom:60px;
+}
+
+.benefits-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:30px;
+}
+
+.card{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:var(--radius);
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+    transition:.4s;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-10px);
+}
+
+.card i{
+
+    font-size:3rem;
+
+    color:var(--primary);
+
+    margin-bottom:20px;
+}
+
+.card h3{
+
+    margin-bottom:15px;
+}
+
+/* ==========================
+   MODULOS
+========================== */
+
+.modules{
+
+    background:#fff3f7;
+
+    padding:100px 0;
+}
+
+.modules h2{
+
+    text-align:center;
+
+    margin-bottom:60px;
+
+    font-size:2.7rem;
+}
+
+.modules-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:25px;
+}
+
+.module-card{
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    position:relative;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.module-card:hover{
+
+    transform:translateY(-8px);
+}
+
+.module-card span{
+
+    position:absolute;
+
+    top:15px;
+    right:20px;
+
+    font-size:3rem;
+
+    color:rgba(255,79,129,.12);
+
+    font-weight:700;
+}
+
+.module-card h3{
+
+    margin-top:25px;
+}
+
+/* ==========================
+   FORMULARIO
+========================== */
+
+.lead-section{
+
+    padding:120px 0;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ff4f81,
+    #ff8bb0
+    );
+}
+
+.lead-card{
+
+    max-width:750px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:60px;
+
+    border-radius:30px;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.15);
+}
+
+.lead-card h2{
+
+    text-align:center;
+
+    font-size:2.5rem;
+
+    margin-bottom:15px;
+}
+
+.lead-card p{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    color:var(--gray);
+}
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+}
+
+form input{
+
+    height:60px;
+
+    border:1px solid #eee;
+
+    border-radius:14px;
+
+    padding:0 20px;
+
+    font-size:1rem;
+
+    outline:none;
+}
+
+form input:focus{
+
+    border-color:var(--primary);
+}
+
+form button{
+
+    height:60px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--gradient);
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+form button:hover{
+
+    transform:translateY(-3px);
+}
+
+/* ==========================
+   FAQ
+========================== */
+
+.faq{
+
+    padding:100px 0;
+}
+
+.faq h2{
+
+    text-align:center;
+
+    margin-bottom:60px;
+
+    font-size:2.7rem;
+}
+
+/* ==========================
+   CTA FINAL
+========================== */
+
+.final-cta{
+
+    padding:120px 0;
+
+    text-align:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #fff5f8,
+        #ffffff
+    );
+}
+
+.final-cta h2{
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+}
+
+.final-cta p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    margin-bottom:40px;
+
+    color:var(--gray);
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer{
+
+    background:#1f1f1f;
+
+    color:white;
+
+    padding:30px 0;
+
+    text-align:center;
+}
+
+/* ==========================
+   FLOATING ANIMATION
+========================== */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-20px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#ffe8f0;
+}
+/* ==========================
+   FAQ PREMIUM
+========================== */
+
+.faq{
+    padding:120px 0;
+    background:#fffafc;
+}
+
+.faq h2{
+    text-align:center;
+    font-size:3rem;
+    margin-bottom:60px;
+    color:#2d2d2d;
+}
+
+#faq-container{
+    max-width:900px;
+    margin:0 auto;
+}
+
+.faq-item{
+    background:#fff;
+    border-radius:20px;
+    margin-bottom:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.faq-item:hover{
+    transform:translateY(-3px);
+}
+
+.faq-question{
+
+    width:100%;
+    border:none;
+    background:white;
+
+    padding:25px 30px;
+
+    text-align:left;
+
+    font-size:1.1rem;
+    font-weight:600;
+
+    color:#333;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.faq-question::after{
+    content:"+";
+    font-size:1.8rem;
+    color:#ff4f81;
+    transition:.3s;
+}
+
+.faq-item.active .faq-question::after{
+    transform:rotate(45deg);
+}
+
+.faq-answer{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:
+        max-height .4s ease,
+        padding .4s ease;
+
+    padding:0 30px;
+
+    color:#666;
+    line-height:1.8;
+}
+
+.faq-item.active .faq-answer{
+
+    max-height:300px;
+
+    padding:0 30px 25px;
+}
