@@ -2,8 +2,8 @@
 // CONFIGURACIÓN
 // ====================================
 
-const WEBHOOK_URL =
-'https://dividend-extenuate-stinger.ngrok-free.dev/webhook/curso-cejas';
+const GOOGLE_SCRIPT_URL = 
+'https://script.google.com/macros/s/AKfycbxApmgNc3imxLTkt202LD0yTI-jg8WF4ijRgdJ3AoX1bfAHsTF-Qg5QQWaoQwncKEu-/exec';
 
 
 // ====================================
@@ -29,63 +29,47 @@ document.addEventListener('DOMContentLoaded', () => {
         button.innerText = 'Enviando...';
 
         const formData = {
-
             nombre: form.nombre.value.trim(),
             correo: form.correo.value.trim(),
             telefono: form.telefono.value.trim(),
             ciudad: form.ciudad.value.trim(),
-
             landing: window.location.href,
-            fecha: new Date().toISOString()
-
+            fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
         };
 
-        console.log('Enviando lead:', formData);
+        console.log('Enviando lead a Google Sheets:', formData);
 
         try {
-
             const response = await fetch(
-                WEBHOOK_URL,
+                GOOGLE_SCRIPT_URL,
                 {
                     method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'text/plain' // Evita restricciones preflight de CORS con Google Apps Script
+                    },
                     body: JSON.stringify(formData)
                 }
             );
 
-            console.log('Status:', response.status);
+            const result = await response.json();
+            console.log('Respuesta de Google:', result);
 
-            const text = await response.text();
-
-            console.log('Respuesta:', text);
-
-            if (!response.ok) {
-                throw new Error(
-                    `Error HTTP ${response.status}`
-                );
+            if (result.status === 'success') {
+                alert('✅ Hemos recibido tu información. Muy pronto te contactaremos.');
+                form.reset();
+            } else {
+                throw new Error(result.message);
             }
-
-            alert(
-                '✅ Hemos recibido tu información. Muy pronto te contactaremos.'
-            );
-
-            form.reset();
 
         }
         catch (error) {
-
-            console.error('Error:', error);
-
-            alert(
-                '❌ No fue posible enviar la información. Intenta nuevamente.'
-            );
-
+            console.error('Error al enviar:', error);
+            alert('❌ No fue posible enviar la información. Intenta nuevamente.');
         }
         finally {
-
             button.disabled = false;
-            button.innerText =
-            'Quiero Recibir Información';
-
+            button.innerText = 'Quiero Recibir Información';
         }
 
     });
